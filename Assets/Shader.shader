@@ -2,17 +2,23 @@
 float3 pos : POSITION;
 float2 uv : UV;
 float3 norm : NORMAL;
+float4 worldPos;
 const matrix4 _MVP;
-const texture2D tex1;
+const matrix4 _Model;
+const texture2D diffuse;
 
 float4 VertexMain()
 {
-	return _MVP * float4(pos, 1);
+	worldPos = _MVP * float4(pos, 1);
+	return worldPos;
 }
 
 float4[3] FragmentMain()
 {
-	float4 albedo = texture(tex1, uv);
+	float4 dif = texture(diffuse, uv);
 
-	return { float4(pos.xyz, 1), float4(norm.xyz, 1), float4(albedo.rgb, 0.5) };
+	matrix4 normalMat = transpose(inverse(_Model));
+	float4 normal = normalMat * float4(normalize(norm), 1);
+
+	return { worldPos, normal, float4(dif.rgb, 0.5) };
 }
