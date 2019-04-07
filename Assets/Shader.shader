@@ -9,13 +9,14 @@ const texture2D diffuse;
 
 float4 VertexMain()
 {
-	worldPos = _MVP * float4(pos, 1);
-	return worldPos;
+	worldPos = _Model * float4(pos, 1);
+	return _MVP * float4(pos, 1);
 }
 
 float4[3] FragmentMain()
 {
 	float4 dif = texture(diffuse, uv);
+	//float4 dif = float4(0, 1, 0, 1);
 
 	matrix4 normalMat = transpose(inverse(_Model));
 	float4 normal = normalMat * float4(normalize(norm), 1);
