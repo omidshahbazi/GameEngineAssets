@@ -5,7 +5,7 @@ float3 norm : NORMAL;
 float4 worldPos;
 const matrix4 _MVP;
 const matrix4 _Model;
-const texture2D diffuse;
+const texture2D diffuseTex;
 
 float4 VertexMain()
 {
@@ -15,8 +15,7 @@ float4 VertexMain()
 
 float4[3] FragmentMain()
 {
-	float4 dif = texture(diffuse, uv);
-	//float4 dif = float4(0, 1, 0, 1);
+	float4 dif = texture(diffuseTex, uv);
 
 	matrix4 normalMat = transpose(inverse(_Model));
 	float4 normal = normalMat * float4(normalize(norm), 1);
