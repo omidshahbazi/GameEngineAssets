@@ -9,6 +9,5 @@ float4 VertexMain()
 
 float4 FragmentMain()
 {
-	//return float4(pos * 0.005, 1);
-	return float4(1, 1, 1, 1);
+	return float4(1	, 0, 1, 1);
 }
