@@ -1,6 +1,7 @@
 
 float3 pos : POSITION;
 const matrix4 _MVP;
+const float2 _Time;
 
 float4 VertexMain()
 {
@@ -9,5 +10,5 @@ float4 VertexMain()
 
 float4 FragmentMain()
 {
-	return float4(1	, 0, 1, 1);
+	return float4(cos(_Time.y), sin(_Time.x), pos.y/64, 1);
 }
