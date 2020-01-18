@@ -20,5 +20,6 @@ float4[3] FragmentMain()
 	matrix4 normalMat = transpose(inverse(_Model));
 	float4 normal = normalMat * float4(normalize(norm), 1);
 
-	return { worldPos, normal, float4(dif.rgb, 0.5) };
+	//return { worldPos, normal, float4(dif.rgb, 0.5) };
+	return { float4(1, 0, 0, 1), normal, float4(dif.rgb, 0.5) };
 }
