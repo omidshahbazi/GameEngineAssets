@@ -1,0 +1,23 @@
+
+struct InputData { float3 Position : POSITION; float2 UV : TEXCOORD; float3 Normal : NORMAL; };
+struct TransformData { matrix4 Model; matrix4 View; matrix4 Projection; matrix4 MVP; };
+TransformData _TransformData;
+TransformData _InverseTransformData;
+texture2D DiffuseTexture; 
+
+float4 VertexMain(InputData inputData)
+{
+	return _TransformData.MVP * float4(inputData.Position, 1);
+}
+
+float4[3] FragmentMain(InputData inputData)
+{
+	float4 worldPos = _TransformData.Model * float4(inputData.Position, 1);
+
+	float4 dif = Sample(DiffuseTexture, inputData.UV);
+
+	matrix4 normalMat = Transpose(_InverseTransformData.Model);
+	float4 normal = normalMat * float4(Normalize(inputData.Normal), 1);
+
+	return { worldPos, normal, float4(dif.rgb, 0.5) };
+} 

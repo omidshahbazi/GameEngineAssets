@@ -1,0 +1,15 @@
+
+float3 pos : POSITION;
+float2 uv : TEXCOORD;
+const matrix4 _MVP;
+const texture2D diffuseTex;
+
+float4 VertexMain()
+{
+	return _MVP * float4(pos, 1);
+}
+
+float4 FragmentMain()
+{
+	return float4(1, 0, 0, 1);
+}
